@@ -415,8 +415,8 @@ shouldReturn403WhenNoToken()
 | Validación de JWT | ✅ Completado      |
 | Configuración Spring Security | ✅ Completado      |
 | Autorización por roles | ✅ Completado      |
-| Tests de integración | ⏳ Planeado        |
-| Migraciones con Flyway/Liquibase | 👨‍💻 En progreso |
+| Tests de integración | 👨‍💻 En progreso       |
+| Migraciones con Flyway/Liquibase | ⏳ Planeado  |
 | Docker | ⏳ Planeado        |
 | Deploy | ⏳ Planeado        |
 
