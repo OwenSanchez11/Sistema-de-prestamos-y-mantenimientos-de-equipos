@@ -388,23 +388,37 @@ Esta implementación proporciona una arquitectura escalable y fácil de mantener
 
 ---
 
+## Actualizaciones
+
+- Se agregaron 2 nuevos test de integración de mi entidad user
+```http
+shouldGetAllUsers()
+
+shouldReturn403WhenNoToken()
+```
+
+
+
+---
+
+
 ## 📊 Progreso del proyecto
 
-| Funcionalidad | Estado |
-|---|---|
-| CRUD completo | ✅ Completado |
-| DTOs | ✅ Completado |
-| Manejo de excepciones | ✅ Completado |
-| Encriptación de contraseñas | ✅ Completado |
-| Login de usuarios | ✅ Completado |
-| Generación de JWT | ✅ Completado |
-| Validación de JWT | ✅ Completado |
-| Configuración Spring Security | ✅ Completado |
-| Autorización por roles | ✅ Completado |
-| Tests de integración | ⏳ Planeado |
-| Migraciones con Flyway/Liquibase | ⏳ Planeado |
-| Docker | ⏳ Planeado |
-| Deploy | ⏳ Planeado |
+| Funcionalidad | Estado            |
+|---|-------------------|
+| CRUD completo | ✅ Completado      |
+| DTOs | ✅ Completado      |
+| Manejo de excepciones | ✅ Completado      |
+| Encriptación de contraseñas | ✅ Completado      |
+| Login de usuarios | ✅ Completado      |
+| Generación de JWT | ✅ Completado      |
+| Validación de JWT | ✅ Completado      |
+| Configuración Spring Security | ✅ Completado      |
+| Autorización por roles | ✅ Completado      |
+| Tests de integración | ⏳ Planeado        |
+| Migraciones con Flyway/Liquibase | 👨‍💻 En progreso |
+| Docker | ⏳ Planeado        |
+| Deploy | ⏳ Planeado        |
 
 Este proyecto continúa evolucionando con el objetivo de implementar una API backend segura, escalable y alineada con buenas prácticas de desarrollo profesional.
  
