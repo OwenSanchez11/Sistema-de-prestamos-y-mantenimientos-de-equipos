@@ -390,14 +390,30 @@ Esta implementación proporciona una arquitectura escalable y fácil de mantener
 
 ## Actualizaciones
 
-- Se agregaron 2 nuevos test de integración de mi entidad user
+- Se agregaron nuevos test de integración de la entidad user
 ```http
-shouldGetAllUsers()
+- shouldGetAllUsers()
 
-shouldReturn403WhenNoToken()
+- shouldReturn403WhenNoToken()
+
+-shouldReturn403WhenTokenIsInvalid()
+
+-shouldCreateUserSuccessfully()
+
+-shouldThrowExceptionWhenUserWithEmailExists()
+
+-shouldThrowExceptiionWhenUserWithDocumentExists()
+
+-shouldUpdateUserSuccessfully()
+
+-shouldThrowExceptionWhenEmailExistsInUpdate()
+
+-shouldDeleteUserSuccessfully()
+
+-shouldThrowExceptionWhenUserNotFoundDelete()
 ```
 
-
+Proximamente se estarán agregando los test de integración para equipment, maintenance y loan.
 
 ---
 

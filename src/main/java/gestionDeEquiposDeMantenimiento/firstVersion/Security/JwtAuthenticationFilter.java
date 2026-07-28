@@ -1,6 +1,7 @@
 package gestionDeEquiposDeMantenimiento.firstVersion.Security;
 
 import gestionDeEquiposDeMantenimiento.firstVersion.User.UserDetailsServiceImpl;
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -35,16 +36,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
+        try {
+
         final String jwt = authHeader.substring(7);
         final String email = jwtService.extractEmail(jwt);
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
             if (email != null && authentication == null) {
 
                 UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 
-                if  (jwtService.isTokenValid(jwt, userDetails)) {
+                if (jwtService.isTokenValid(jwt, userDetails)) {
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                             userDetails,
                             null,
@@ -59,8 +63,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
 
             filterChain.doFilter(request, response);
+            return;
 
+        } catch (JwtException | IllegalStateException e) {
+            logger.warn("Token JWT inválido: " + e.getMessage());
         }
 
+        filterChain.doFilter(request, response);
 
+    }
 }
