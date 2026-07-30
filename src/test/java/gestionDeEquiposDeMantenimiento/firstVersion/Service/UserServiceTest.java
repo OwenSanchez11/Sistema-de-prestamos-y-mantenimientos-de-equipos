@@ -46,8 +46,9 @@ public class UserServiceTest {
     @Test
     void shouldSaveUserSuccesfully() {
 
-        UserCreateDTO request = TestDataFactory.validUserRequest();
+        UserCreateDTO request = TestDataFactory.validUserRequest(1L);
         RolModel rol = new RolModel();
+        rol.setIdRol(1L);
 
         when(rolRepository.findById(request.getIdRol()))
                 .thenReturn(Optional.of(rol));
@@ -76,8 +77,9 @@ public class UserServiceTest {
 
     @Test
     void shouldThrowExceptionWhenUserExistsByDocument() {
-        UserCreateDTO request = TestDataFactory.validUserRequest();
+        UserCreateDTO request = TestDataFactory.validUserRequest(1L);
         RolModel rol = new RolModel();
+        rol.setIdRol(1L);
 
         when(rolRepository.findById(request.getIdRol()))
                 .thenReturn(Optional.of(rol));
@@ -95,8 +97,9 @@ public class UserServiceTest {
 
     @Test
     void shouldThrowExceptionWhenUserExistsbyEmail() {
-        UserCreateDTO request = TestDataFactory.validUserRequest();
+        UserCreateDTO request = TestDataFactory.validUserRequest(1L);
         RolModel rol = new RolModel();
+        rol.setIdRol(1L);
 
         when(rolRepository.findById(request.getIdRol()))
                 .thenReturn(Optional.of(rol));
@@ -115,7 +118,7 @@ public class UserServiceTest {
 
     @Test
     void shouldThrowExceptionWhenRolIsNotFound() {
-        UserCreateDTO request = TestDataFactory.validUserRequest();
+        UserCreateDTO request = TestDataFactory.validUserRequest(1L);
 
         when(rolRepository.findById(request.getIdRol()))
                 .thenReturn(Optional.empty());

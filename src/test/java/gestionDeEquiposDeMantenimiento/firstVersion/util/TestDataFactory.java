@@ -11,6 +11,7 @@ import gestionDeEquiposDeMantenimiento.firstVersion.LoanDTO.LoanUpdateDTO;
 import gestionDeEquiposDeMantenimiento.firstVersion.Maintenance.DTO.MaintenanceCreateDTO;
 import gestionDeEquiposDeMantenimiento.firstVersion.Maintenance.MaintenanceModel;
 import gestionDeEquiposDeMantenimiento.firstVersion.Maintenance.MaintenanceStatus;
+import gestionDeEquiposDeMantenimiento.firstVersion.Rol.RolModel;
 import gestionDeEquiposDeMantenimiento.firstVersion.User.DTO.UserCreateDTO;
 import gestionDeEquiposDeMantenimiento.firstVersion.User.DTO.UserUpdateDTO;
 import gestionDeEquiposDeMantenimiento.firstVersion.User.UserModel;
@@ -113,7 +114,7 @@ public class TestDataFactory {
         return equipment;
     }
 
-    public static UserCreateDTO validUserRequest() {
+    public static UserCreateDTO validUserRequest(Long idRol) {
         UserCreateDTO request = new UserCreateDTO();
         request.setName("user1");
         request.setLastName("userApellido");
@@ -122,7 +123,7 @@ public class TestDataFactory {
         request.setPassword("123456");
         request.setDocumento("2222");
         request.setPhoneNumber("3333");
-        request.setIdRol(1L);
+        request.setIdRol(idRol);
         request.setCargo("Jefe");
 
         return request;
@@ -140,5 +141,33 @@ public class TestDataFactory {
         return user;
     }
 
+    public static UserModel userRequest(RolModel rol) {
+        UserModel user = new UserModel();
+        user.setName("Alberto");
+        user.setLastName("sobrnino");
+        user.setEmail("ElCacique2605@example.com");
+        user.setDocumento("2222");
+        user.setCargo("empleado");
+        user.setPassword("123456789");
+        user.setPhoneNumber("1111");
+        user.setRol(rol);
+        user.setActive(true);
+
+        return user;
+    }
+
+    public static EquipmentModel equipmentExisting()  {
+        EquipmentModel equipment = new EquipmentModel();
+        equipment.setName("Taladro");
+        equipment.setDescription("taladro 2 piezas");
+        equipment.setBrand("123456");
+        equipment.setActive(true);
+        equipment.setStatus(EquipmentStatus.AVAILABLE);
+        equipment.setModel("taladro cat");
+        equipment.setCodeInventory(1111);
+        equipment.setSeriesNum(2222);
+
+        return equipment;
+    }
 
 }

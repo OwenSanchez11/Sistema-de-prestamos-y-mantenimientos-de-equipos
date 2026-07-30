@@ -6,6 +6,7 @@ import gestionDeEquiposDeMantenimiento.firstVersion.Rol.RolName;
 import gestionDeEquiposDeMantenimiento.firstVersion.Rol.RolRepository;
 import gestionDeEquiposDeMantenimiento.firstVersion.User.UserModel;
 import gestionDeEquiposDeMantenimiento.firstVersion.User.UserRepository;
+import gestionDeEquiposDeMantenimiento.firstVersion.util.TestDataFactory;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,18 +104,9 @@ public class UserIntegrationTest extends IntegrationTestBase{
     void shouldThrowExceptionWhenUserWithEmailExists() throws Exception {
         String token = getAdminToken();
         RolModel rol = rolRepository.findByName(RolName.TECNICO).get();
-        UserModel user = new UserModel();
-        user.setName("Alberto");
-        user.setLastName("sobrnino");
-        user.setEmail("ElCacique2605@example.com");
-        user.setDocumento("2222");
-        user.setCargo("empleado");
-        user.setPassword("123456789");
-        user.setPhoneNumber("1111");
-        user.setActive(true);
-        user.setRol(rol);
+        UserModel existingUser = TestDataFactory.userRequest(rol);
 
-        userRepository.save(user);
+        userRepository.save(existingUser);
 
         mockMvc.perform(
                 post("/users")
@@ -145,16 +137,7 @@ public class UserIntegrationTest extends IntegrationTestBase{
     void shouldThrowExceptiionWhenUserWithDocumentExists() throws Exception {
         String token = getAdminToken();
         RolModel rol = rolRepository.findByName(RolName.TECNICO).get();
-        UserModel user = new UserModel();
-        user.setName("Alberto");
-        user.setLastName("sobrnino");
-        user.setEmail("ElCacique2605@example.com");
-        user.setDocumento("2222");
-        user.setCargo("empleado");
-        user.setPassword("123456789");
-        user.setPhoneNumber("1111");
-        user.setActive(true);
-        user.setRol(rol);
+        UserModel user = TestDataFactory.userRequest(rol);
         userRepository.save(user);
 
         mockMvc.perform(
@@ -186,16 +169,7 @@ public class UserIntegrationTest extends IntegrationTestBase{
     @Test
     void shouldUpdateUserSuccessfully() throws Exception {
         RolModel rol= rolRepository.findByName(RolName.TECNICO).get();
-        UserModel user = new UserModel();
-        user.setName("Alberto");
-        user.setLastName("sobrnino");
-        user.setEmail("alberto@example.com");
-        user.setDocumento("2222");
-        user.setCargo("empleado");
-        user.setPassword("123456789");
-        user.setPhoneNumber("1111");
-        user.setActive(true);
-        user.setRol(rol);
+        UserModel user = TestDataFactory.userRequest(rol);
         user = userRepository.save(user);
         RolModel newRol = rolRepository.findByName(RolName.ADMIN).get();
 
@@ -233,19 +207,10 @@ public class UserIntegrationTest extends IntegrationTestBase{
         RolModel rol1 = rolRepository.findByName(RolName.ADMIN).get();
         RolModel rol2 = rolRepository.findByName(RolName.TECNICO).get();
 
-        UserModel user1 = new UserModel();
-        user1.setName("Alberto");
-        user1.setLastName("sobrnino");
-        user1.setEmail("alberto@example.com");
-        user1.setDocumento("2222");
-        user1.setCargo("empleado");
-        user1.setPassword("123456789");
-        user1.setPhoneNumber("1111");
-        user1.setActive(true);
-        user1.setRol(rol1);
+        UserModel user1 = TestDataFactory.userRequest(rol1);
         user1 = userRepository.save(user1);
 
-        UserModel user2 = new UserModel();
+        UserModel user2 = TestDataFactory.userRequest(rol2);
         user2.setName("John");
         user2.setLastName("Doe");
         user2.setEmail("JohnDoe@example.com");
@@ -255,6 +220,7 @@ public class UserIntegrationTest extends IntegrationTestBase{
         user2.setPhoneNumber("12253");
         user2.setActive(true);
         user2.setRol(rol2);
+
         user2 = userRepository.save(user2);
 
 
@@ -266,7 +232,7 @@ public class UserIntegrationTest extends IntegrationTestBase{
                                 """
                                     {
                                     
-                                        "email": "alberto@example.com",
+                                        "email": "ElCacique2605@example.com",
                                         "name": "juan rodolfo",
                                         "active": true,
                                         "phoneNumber": "12345612",
@@ -289,16 +255,7 @@ public class UserIntegrationTest extends IntegrationTestBase{
     void shouldDeleteUserSuccessfully() throws Exception {
         String token = getAdminToken();
         RolModel rol = rolRepository.findByName(RolName.TECNICO).get();
-        UserModel user = new UserModel();
-        user.setName("Alberto");
-        user.setLastName("sobrnino");
-        user.setEmail("alberto@example.com");
-        user.setDocumento("2222");
-        user.setCargo("empleado");
-        user.setPassword("123456789");
-        user.setPhoneNumber("1111");
-        user.setActive(true);
-        user.setRol(rol);
+        UserModel user = TestDataFactory.userRequest(rol);
         user = userRepository.save(user);
 
 
@@ -318,16 +275,7 @@ public class UserIntegrationTest extends IntegrationTestBase{
     void shouldThrowExceptionWhenUserNotFoundDelete() throws Exception {
         RolModel rol = rolRepository.findByName(RolName.TECNICO).get();
         String token = getAdminToken();
-        UserModel user =new UserModel();
-        user.setName("Alberto");
-        user.setLastName("sobrnino");
-        user.setEmail("alberto@example.com");
-        user.setDocumento("2222");
-        user.setCargo("empleado");
-        user.setPassword("123456789");
-        user.setPhoneNumber("1111");
-        user.setActive(true);
-        user.setRol(rol);
+        UserModel user =TestDataFactory.userRequest(rol);
         user = userRepository.save(user);
         Long idInexistente = user.getIdUsuario() + 1000;
 
@@ -336,7 +284,7 @@ public class UserIntegrationTest extends IntegrationTestBase{
                         .header("Authorization", "Bearer "+ token)
         )
                 .andExpect(status().isNotFound())
-                .andExpect(jsonPath("$.message").value("No se encontró el user con el id: " + idInexistente));;
+                .andExpect(jsonPath("$.message").value("No se encontró el user con el id: " + idInexistente));
     }
 
 }

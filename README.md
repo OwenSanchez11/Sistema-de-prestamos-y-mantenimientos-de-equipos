@@ -413,6 +413,28 @@ Esta implementación proporciona una arquitectura escalable y fácil de mantener
 -shouldThrowExceptionWhenUserNotFoundDelete()
 ```
 
+- Se agregaron nuevos test de integración de la entidad user
+```http
+- shouldGetAllEquipments()
+
+- shouldCreateEquipmentSuccessfully()
+
+-shouldThrowExceptionWhenEquipmentAlreadyExistsByCodeInventory()
+
+-shouldUpdateEquipmentSuccesfully()
+
+-shouldThrowExceptionWhenEquipmentIsMaintenance()
+
+-shouldThrowExceptionWhenEquipmentIsLoaned()
+
+-shouldDeleteSuccessfully()
+
+-shouldThrowExceptionWhenEquipmentNotFoundToDelete()
+
+
+```
+
+
 Proximamente se estarán agregando los test de integración para equipment, maintenance y loan.
 
 ---
