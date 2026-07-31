@@ -434,8 +434,46 @@ Esta implementación proporciona una arquitectura escalable y fácil de mantener
 
 ```
 
+- Se agregaron nuevos test de integración de la entidad Maintenance Y Loan
 
-Proximamente se estarán agregando los test de integración para equipment, maintenance y loan.
+### Loan
+```http
+- shouldGetLoanSuccessfully()
+
+- shouldCreateLoanSuccessfully()
+
+-shoudlThrowExceptionWhenEquipmentIsNotAvailable()
+
+-shouldThrowExceptionWhenUserReceiverIsInactive()
+
+-shouldThrowExceptionWhenUserDelivererIsInactivve()
+
+-shouldUpdateLoanSuccessfully()
+
+-shouldThrowExceptionWhenLoanIsReturned()
+
+-shouldDeleteLoanSuccessfully()
+
+
+```
+
+
+### Maintenance
+```http
+- shouldGetMaintenanceSucessfully()
+
+- shouldCreateMaintenanceSuccessfully()
+
+-shouldThrowExceptionMaintenanceWhenEquipmentIsNotAvailable()
+
+-shouldThrowExceptionMaintenanceWhenUserIsInactive()
+
+-shouldUpdateMaintenanceSuccessfully()
+
+-shouldThrowExceptionInUpdateWhenMaintenanceIsCompleted()
+
+
+```
 
 ---
 

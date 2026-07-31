@@ -170,4 +170,20 @@ public class TestDataFactory {
         return equipment;
     }
 
+    public static LoanModel loanExisting() {
+        LoanModel loan = new LoanModel();
+        loan.setLoanStatus(LoanStatus.ACTIVE);
+        loan.setObservationsOut("se encuentra en perfecto estado el equipo");
+        return loan;
+    }
+
+    public static MaintenanceModel maintenanceExisting() {
+        MaintenanceModel maintenance = new MaintenanceModel();
+        maintenance.setMaintenanceStatus(MaintenanceStatus.IN_PROGRESS);
+        maintenance.setDescription("Mantenimiento");
+        maintenance.setPriceMaintenance("1111");
+
+        return maintenance;
+    }
+
 }
