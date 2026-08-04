@@ -38,3 +38,8 @@ src/main/resources/application.properties
 #arhivos postman
 .postman/
 postman/
+
+# Variables de entorno
+.env
+.env.*
+!.env.example
