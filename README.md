@@ -34,6 +34,7 @@ de equipos, usuarios y roles dentro de una organización, gestionando préstamos
 - Spring Security
 - PostgreSQL
 - Maven
+- Docker
 
 
 ---
