@@ -5,10 +5,11 @@ services:
       - "8080:8080"
 
     depends_on:
-      - postgres
+      postgres:
+          condition: service_healthy
 
     environment:
-      DB_URL: ${DB_URL}
+      DB_URL: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
       JWT_SECRET: ${JWT_SECRET}
@@ -16,6 +17,11 @@ services:
 
   postgres:
     image: postgres:16
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
     container_name: postgres_db
 

@@ -20,6 +20,8 @@ de equipos, usuarios y roles dentro de una organización, gestionando préstamos
 - [Endpoints principales](#-main-endpoints)
 - [Manejo de errores](#-api-error-handling)
 - [Funcionalidades avanzadas de consulta](#funcionalidades-avanzadas-de-consultas)
+- [Docker](#-ejecutar-con-docker)
+- [Actualizaciones del proyecto](#actualizaciones)
 - [Progreso del proyecto](#-progreso-del-proyecto)
 - [Autor](#-autor)
 ---
@@ -388,6 +390,78 @@ Esta implementación proporciona una arquitectura escalable y fácil de mantener
 
 ---
 
+
+## 🐳 Ejecutar con Docker
+
+### Requisitos
+
+Antes de comenzar hay que estar seguros de que tienes que tener instalado docker desktop
+
+- Docker
+- Docker Compose
+
+
+### 1. Clonar el repositorio
+
+```bash
+git clone <url-del-repositorio>
+cd firstVersion
+```
+
+
+### 2. Crear el archivo `.env`
+
+Crea un archivo llamado `.env` en la raíz del proyecto con el siguiente contenido, puedes tomar .env.example como ejemplo para crear el archivo:
+
+```env
+DB_HOST=postgres
+DB_PORT=5432
+DB_NAME=Gestion_equipos_DB
+
+DB_USERNAME=postgres
+DB_PASSWORD=postgres
+
+JWT_SECRET=TU_CLAVE_SECRETA_DE_AL_MENOS_32_CARACTERES
+JWT_EXPIRATION=86400000
+```
+
+### 3. Iniciar los contenedores
+
+```bash
+docker compose up --build
+```
+
+La primera vez puede tardar varios minutos porque Docker descargará las imágenes necesarias y construirá la aplicación.
+
+### 4. Acceder a la aplicación
+
+Swagger:
+
+```
+http://localhost:8080/swagger-ui/index.html
+```
+
+## ¿Qué hace Docker compose?
+
+Al ejecutar
+
+
+```bash
+docker compose up --build
+```
+
+Docker compose construye: 
+
+- la imagen de la aplicación Spring boot
+- Inicia un contenedor de PostgreSQL
+- Crea un volumen para persistir la DB
+- Espera que postgres esté disponible con Health check
+  - Inicia la aplicación de springboot  
+
+
+
+
+
 ## Actualizaciones
 
 - Se agregaron nuevos test de integración de la entidad user
@@ -474,8 +548,21 @@ Esta implementación proporciona una arquitectura escalable y fácil de mantener
 
 
 ```
+---
+
+### Docker
+
+- Se agregó un `Dockerfile` para ejecutar la aplicación con Docker.
+- Se configuró `Docker Compose` para levantar automáticamente el backend y PostgreSQL.
+- Se implementó el uso de variables de entorno mediante un archivo `.env`.
+- Se configuró un volumen para persistir los datos de PostgreSQL.
+- Se actualizó el `.gitignore` para excluir archivos sensibles como `.env`.
 
 ---
+
+
+
+
 
 
 ## 📊 Progreso del proyecto
@@ -491,9 +578,8 @@ Esta implementación proporciona una arquitectura escalable y fácil de mantener
 | Validación de JWT | ✅ Completado      |
 | Configuración Spring Security | ✅ Completado      |
 | Autorización por roles | ✅ Completado      |
-| Tests de integración | 👨‍💻 En progreso       |
-| Migraciones con Flyway/Liquibase | ⏳ Planeado  |
-| Docker | ⏳ Planeado        |
+| Tests de integración | ✅ Completado      |
+| Docker | ‍✅ Completado     |
 | Deploy | ⏳ Planeado        |
 
 Este proyecto continúa evolucionando con el objetivo de implementar una API backend segura, escalable y alineada con buenas prácticas de desarrollo profesional.

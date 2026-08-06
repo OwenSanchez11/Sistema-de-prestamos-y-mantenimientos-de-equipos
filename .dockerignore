@@ -1,0 +1,27 @@
+# Git
+.git
+.gitignore
+
+# IntelliJ
+.idea
+*.iml
+
+# Maven
+target/
+
+# Variables de entorno
+.env
+
+# Documentación y archivos auxiliares
+README.md
+HELP.md
+
+# Postman
+.postman/
+postman/
+
+# Capturas
+screenshots/
+
+# VS Code
+.vscode/
