@@ -45,6 +45,13 @@ jobs:
       - name: Grant execute permission
         run: chmod +x mvnw
 
+      - name: Verify PostgreSQL
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client
+          pg_isready -h localhost -p 5432 -U postgres
+
+
       - name: Run tests
         env:
           DB_URL: jdbc:postgresql://localhost:5432/Gestion_equipos_DB
@@ -52,5 +59,5 @@ jobs:
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           JWT_EXPIRATION: ${{ secrets.JWT_EXPIRATION }}
-        run: ./mvnw test
+        run: ./mvnw test -e
 
