@@ -19,7 +19,7 @@ jobs:
         env:
           POSTGRES_DB: Gestion_equipos_DB
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          POSTGRES_PASSWORD: postgres
 
         ports:
           - 5432:5432
@@ -79,7 +79,7 @@ jobs:
         env:
           DB_URL: jdbc:postgresql://localhost:5432/Gestion_equipos_DB
           DB_USERNAME: postgres
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_PASSWORD: postgres
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           JWT_EXPIRATION: ${{ secrets.JWT_EXPIRATION }}
         run: ./mvnw test -e
