@@ -55,9 +55,9 @@ jobs:
         env:
           DB_URL: jdbc:postgresql://localhost:5432/Gestion_equipos_DB
           DB_USERNAME: postgres
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
-          JWT_EXPIRATION: ${{ secrets.JWT_EXPIRATION }}
+          DB_PASSWORD: postgres
+          JWT_SECRET: 12345678901234567890123456789012
+          JWT_EXPIRATION: 3600000
         run: |
           echo "DB_URL=$DB_URL"
           echo "DB_USERNAME=$DB_USERNAME"
@@ -80,8 +80,8 @@ jobs:
           DB_URL: jdbc:postgresql://localhost:5432/Gestion_equipos_DB
           DB_USERNAME: postgres
           DB_PASSWORD: postgres
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
-          JWT_EXPIRATION: ${{ secrets.JWT_EXPIRATION }}
+          JWT_SECRET: 12345678901234567890123456789012
+          JWT_EXPIRATION: 3600000
         run: ./mvnw test -e
 
       - name: Upload Surefire Reports
