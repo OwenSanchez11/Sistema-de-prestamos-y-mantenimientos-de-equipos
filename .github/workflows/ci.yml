@@ -51,6 +51,29 @@ jobs:
           sudo apt-get install -y postgresql-client
           pg_isready -h localhost -p 5432 -U postgres
 
+      - name: Verify environment variables
+        env:
+          DB_URL: jdbc:postgresql://localhost:5432/Gestion_equipos_DB
+          DB_USERNAME: postgres
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          JWT_EXPIRATION: ${{ secrets.JWT_EXPIRATION }}
+        run: |
+          echo "DB_URL=$DB_URL"
+          echo "DB_USERNAME=$DB_USERNAME"
+      
+          if [ -n "$DB_PASSWORD" ]; then
+            echo "DB_PASSWORD OK"
+          else
+            echo "DB_PASSWORD EMPTY"
+          fi
+      
+          if [ -n "$JWT_SECRET" ]; then
+            echo "JWT_SECRET OK"
+          else
+            echo "JWT_SECRET EMPTY"
+          fi
+
 
       - name: Run tests
         env:
