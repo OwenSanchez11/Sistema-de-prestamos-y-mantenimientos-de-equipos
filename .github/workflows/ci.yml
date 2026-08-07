@@ -46,10 +46,13 @@ jobs:
         run: chmod +x mvnw
 
       - name: Verify PostgreSQL
+        env:
+          PGPASSWORD: postgres
         run: |
           sudo apt-get update
           sudo apt-get install -y postgresql-client
-          pg_isready -h localhost -p 5432 -U postgres
+          pg_isready -h localhost -p 5432 -U postgres -d Gestion_equipos_DB
+          psql -h localhost -p 5432 -U postgres -d Gestion_equipos_DB -c "select 1;"
 
       - name: Verify environment variables
         env:
