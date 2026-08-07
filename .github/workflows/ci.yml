@@ -13,6 +13,24 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_DB: Gestion_equipos_DB
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: ${{ secrets.DB_PASSWORD }}
+
+        ports:
+          - 5432:5432
+
+        options: >-
+          --health-cmd="pg_isready -U postgres -d Gestion_equipos_DB"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+
     steps:
       - name: checkout repository
         uses: actions/checkout@v4
@@ -24,9 +42,15 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Grrant execute permission
+      - name: Grant execute permission
         run: chmod +x mvnw
 
       - name: Run tests
+        env:
+          DB_URL: jdbc:postgresql://localhost:5432/Gestion_equipos_DB
+          DB_USERNAME: postgres
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          JWT_EXPIRATION: ${{ secrets.JWT_EXPIRATION }}
         run: ./mvnw test
 
