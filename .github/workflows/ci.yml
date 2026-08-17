@@ -85,6 +85,7 @@ jobs:
           DB_PASSWORD: postgres
           JWT_SECRET: "test-jwt-secret-key-12345678901234567890"
           JWT_EXPIRATION: "3600000"
+          JWT_REFRESH_EXPIRATION: "604800000"
         run: ./mvnw test -e
 
       - name: Upload Surefire Reports
