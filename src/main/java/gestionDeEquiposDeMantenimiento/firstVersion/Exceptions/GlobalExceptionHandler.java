@@ -4,6 +4,8 @@ package gestionDeEquiposDeMantenimiento.firstVersion.Exceptions;
 import java.time.LocalDateTime;
 import static org.aspectj.bridge.MessageUtil.error;
 import static org.slf4j.helpers.Reporter.error;
+
+import org.apache.coyote.Response;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -60,6 +62,12 @@ public class GlobalExceptionHandler {
         
         return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
     }
-   
+
+    @ExceptionHandler(RefreshTokenExpiredException.class)
+    public ResponseEntity<ErrorResponse> tokenExpired(RefreshTokenExpiredException ex) {
+        ErrorResponse errorResponse = new ErrorResponse(LocalDateTime.now(), 401, "Unautohrized", ex.getMessage());
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
+    }
     
 }

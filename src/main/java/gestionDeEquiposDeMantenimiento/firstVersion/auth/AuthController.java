@@ -3,6 +3,8 @@ package gestionDeEquiposDeMantenimiento.firstVersion.auth;
 
 
 import gestionDeEquiposDeMantenimiento.firstVersion.Exceptions.ErrorResponse;
+import gestionDeEquiposDeMantenimiento.firstVersion.TokenRefresh.TokenDTO.RefreshTokenDTO;
+import gestionDeEquiposDeMantenimiento.firstVersion.TokenRefresh.TokenDTO.TokenResponseDTO;
 import gestionDeEquiposDeMantenimiento.firstVersion.auth.DTO.LoginRequestDTO;
 import gestionDeEquiposDeMantenimiento.firstVersion.auth.DTO.LoginResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -46,5 +48,9 @@ public class AuthController {
         return this.authService.authenticate(request);
     }
     
+    @PostMapping(path = "/refresh")
+    public TokenResponseDTO refresh(@RequestBody RefreshTokenDTO request) {
+        return authService.refreshToken(request);
+    }
     
 }
