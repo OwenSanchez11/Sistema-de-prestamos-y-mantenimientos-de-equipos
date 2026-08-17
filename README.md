@@ -110,14 +110,42 @@ POST /auth/login
 El controlador recibe esos datos y los envía al servicio de autenticación, el cual utiliza la clase `AuthenticationManager` para delegar la verificación de credenciales a Spring Security.
 
 - Spring Security valida las credenciales y genera un JWT si son correctas. El token contiene información del usuario como email, rol e id en el sistema.
-- El token es devuelto al cliente para que pueda utilizarlo en las siguientes peticiones.
+- Se le devuelven el acces token y el refresh token al cliente para que pueda utilizarlo en las siguientes peticiones.
 ```json
 {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "refreshToken": "980967ee-a89a-4ab1-86ba-720e67161a51",
     "type": "Bearer"
 }
 
 ```
+
+### Refresh Token
+Se realiza la petición al endpoint, enviando en el body el refresh token en caso de que el access token ya haya caducado, sin que el user tenga que volver a iniciar la sesión
+```
+POST /auth/refresh
+```
+```json
+{
+    "RefreshToken": "980967ee-a89a-4ab1-86ba-720e67161a51"
+}
+
+```
+- una vez que se envía el refresh token,el backend lo obtiene y lo busca en la DB
+- el backend verifica si existe o si ya expiró
+- obtiene al usuario relacionado con el refresh token
+- luego genera un nuevo access token
+- pasa a invalidar el refresh token anterior y generar un nuevo token de refrsco
+- y al final le devuelve ambos token al cliente
+
+```json
+{
+"accessToken": "eyJhbGciOiJIUzI1NiJ9...",
+"refreshToken": "nuevo-refresh-token"
+}
+
+```
+
 
 ## 🔐 Autorización basada en roles
 
@@ -250,9 +278,10 @@ Se implementaron pruebas unitarias usando JUnit y Mockito para validar la lógic
 
 
 ### 🔏 Autenticación
-| Method | Endpoint      | Description |
-| ------ |---------------|-------------|
-| POST   | `/auth/login` | User Login  |
+| Method | Endpoint        | Description   |
+| ------ |-----------------|---------------|
+| POST   | `/auth/login`   | User Login    |
+| POST   | `/auth/refresh` | Refresh token |
 
 
 
@@ -561,7 +590,9 @@ Docker compose construye:
 
 ---
 
-
+### Refresh token
+- se implementó un token de refresco para que el user pueda mantener la sesión iniciada en caso de que el acces token expire
+- haciendo la petición al endpoint correspondiente obtiene un nuevo acces token y un nuevo refresh token para proximas verificaciones
 
 
 
